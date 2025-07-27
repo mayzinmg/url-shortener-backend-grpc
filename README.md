@@ -1,47 +1,70 @@
-# 🔗 URL Shortener with Analytics (gRPC Backend)
+# URL Shortener gRPC Service
 
-This project is a cloud-native **URL Shortener service** built using:
-- 🧠 **.NET 8** with **gRPC**
-- ☁️ Hosted on **Azure Container Apps**
-- 🔐 Integrated with **Azure Key Vault** and **Azure Table Storage**
-- 🐳 Containerized using **Docker**
+A gRPC-based microservice that shortens long URLs and stores them using Azure Table Storage.
 
-It allows users to shorten URLs and track click analytics securely and efficiently.
+## Features
+
+- ✅ gRPC API (Shorten, Expand, Analytics)
+- ☁️ Azure Table Storage with `Azure.Data.Tables`
+- 🐳 Dockerized for container deployment
+- 🔒 Secure Key Vault access with `DefaultAzureCredential`
+
+## Folder Structure
+
+```
+Protos/           → gRPC definitions (.proto)
+Services/         → gRPC service implementation
+Factories/        → Singleton factories (e.g., TableClient)
+Models/           → Data models
+```
+
+## Getting Started
+
+### 1. Build the Project
+
+```bash
+dotnet build
+```
+
+### 2. Run the Service
+
+```bash
+dotnet run
+```
+
+### 3. gRPC Testing Tools
+
+- [BloomRPC](https://github.com/bloomrpc/bloomrpc)
+- [grpcurl](https://github.com/fullstorydev/grpcurl)
 
 ---
 
-## ✨ Features
+## Docker
 
-- 🔗 Shorten long URLs with a unique code
-- 📊 Track analytics (click count, timestamp, IP address, etc.)
-- 🛡️ Secured secrets via **Azure Key Vault**
-- 📁 Storage backed by **Azure Table Storage**
-- 🌐 Supports both **gRPC** and **gRPC-Web** (via `EnableGrpcWeb`)
-- 🚀 Container-ready for cloud deployments
+### Build Docker Image
+
+```bash
+docker build -t urlshortener-grpc .
+```
+
+### Run
+
+```bash
+docker run -p 5243:8080 urlshortener-grpc
+```
+
+## Environment Configuration
+
+Set `KeyVaultName` in `appsettings.json`:
+
+```json
+{
+  "KeyVaultName": "your-keyvault-name"
+}
+```
 
 ---
 
-## ⚙️ Technologies Used
+## License
 
-| Layer | Tech |
-|-------|------|
-| Backend | `ASP.NET Core 8`, `gRPC`, `Grpc.AspNetCore.Web` |
-| Security | `Azure.Identity`, `Azure.Security.KeyVault.Secrets` |
-| Storage | `Azure.Data.Tables` |
-| Deployment | `Docker`, `Azure Container Apps` |
-| Tools | `BloomRPC`, `grpcurl`, `Postman` (with gRPC plugin) |
-
----
-
-## 📐 Architecture
-
-```plaintext
-Client (gRPC / gRPC-Web)
-      ↓
-ASP.NET Core gRPC Service (.proto)
-      ↓
-URLShortenerServiceImpl
-      ↓
-Azure Table Storage (for mapping & analytics)
-      ↓
-Azure Key Vault (for secrets)
+MIT
