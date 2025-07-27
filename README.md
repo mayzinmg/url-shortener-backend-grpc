@@ -1,5 +1,10 @@
 # URL Shortener gRPC Service
 
+![.NET](https://img.shields.io/badge/.NET-8.0-blue)
+![gRPC](https://img.shields.io/badge/gRPC-supported-green)
+![Azure](https://img.shields.io/badge/Azure-Table_Storage-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 A gRPC-based microservice that shortens long URLs and stores them using Azure Table Storage.
 
 ## Features
